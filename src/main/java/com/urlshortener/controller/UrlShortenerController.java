@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.urlshortener.dto.ShortenUrlResponse;
 import com.urlshortener.dto.UrlRequest;
 import com.urlshortener.service.UrlShortenerService;
 import jakarta.validation.Valid;
+import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api")
@@ -27,13 +31,16 @@ public class UrlShortenerController {
 	
 	
 	@PostMapping("/shorten")
-	public ResponseEntity<String> createShortUrl(@Valid @RequestBody UrlRequest urlRequest) {
+	public ResponseEntity<ShortenUrlResponse> createShortUrl(@Valid @RequestBody UrlRequest urlRequest) {
 	
 		String inputUrl=urlRequest.getLongUrl();
 		logger.info("Received Request to shorten URL: {}", inputUrl);
 	    String shortCode = urlShortenerService.shortenUrl(inputUrl);
 	    logger.debug("Generated short code: {}", shortCode);
-		return ResponseEntity.ok(shortCode);
+		return new ResponseEntity<>(ShortenUrlResponse.builder()
+                .longUrl(inputUrl)
+                .shortcode(shortCode)
+                .build(), HttpStatus.CREATED);
 	}
 	
 	
