@@ -78,7 +78,7 @@ Redirects to the original long URL based on `shortCode`.
 
 git clone https://github.com/rahul-kumar-java/urlshortener.git
 cd urlshortener
-```
+
 
 2. Configure MySQL and Redis
 Update your `application.properties` with the correct credentials.
