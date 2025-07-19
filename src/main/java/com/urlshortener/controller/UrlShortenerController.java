@@ -47,6 +47,8 @@ public class UrlShortenerController {
 	@GetMapping("/r/{shortCode}")
 	public ResponseEntity<Void> redirect(@PathVariable String shortCode) {
 		
+		if(shortCode == null || shortCode.trim().isBlank())
+			throw new IllegalArgumentException("Short Code can not be blank or Null");
 	  String longUrl = urlShortenerService.getOriginalUrl(shortCode);
 	  logger.debug("Short code: {} maps to Long URL: {}", shortCode, longUrl);
 	  return ResponseEntity.status(HttpStatus.FOUND)
