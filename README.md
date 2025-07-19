@@ -1,6 +1,6 @@
 Title:  URL Shortener Project
 
-Short Description: A simple URL Shortener application built using Spring Boot. It allows users to shorten long URLs and redirect using short codes.
+Short Description: A lightweight URL Shortener application built using Spring Boot. It is designed to convert long URLs into short, manageable codes. Supports redirection, caching with Redis, validation, and full unit testing coverage.
 
 
 ##  Features
@@ -9,8 +9,9 @@ Short Description: A simple URL Shortener application built using Spring Boot. I
 - Redirect short URLs to the original
 - Redis caching for fast retrieval
 - Input validation & custom exception handling
-- API Documentation with Swagger UI
+- API Documentation via Swagger UI
 - Basic logging using SLF4J
+- Unit Tests for Controller and Service Layers
 - Deployed on local server
 - Project pushed to GitHub
 
@@ -22,15 +23,16 @@ Short Description: A simple URL Shortener application built using Spring Boot. I
 - Spring Web, Spring Data JPA, Spring Validation
 - MySQL
 - Redis
-- Swagger (springdoc-openapi)
+- Swagger UI (springdoc-openapi)
 - SLF4J Logging
 - Maven
+- JUnit & Mockito
 
 
 ##  API Endpoints
 
 ### `POST /api/shorten`
-http://localhost:8082/api/shorten
+creates a short URL from a long one.
 
 **Request Body:**
 ```json
@@ -38,6 +40,8 @@ http://localhost:8082/api/shorten
   "longUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
 }
 ```
+URL:
+http://localhost:8082/api/shorten
 
 **Response:**
 {
@@ -54,11 +58,25 @@ http://localhost:8082/api/r/a
 
 Redirects to the original long URL based on `shortCode`.
 
-Run Locally:
+
+## Testing
+ Unit tested with JUnit 5 & Mockito
+
+### Test Coverage:
+
+- POST and GET controller endpoints
+
+- Service layer logic (with Redis and DB interaction)
+
+- Validated with Postman and Swagger UI
+
+
+
+## Run Locally:
 
 1. Clone the repo
 
-git clone https://github.com/your-username/urlshortener.git
+git clone https://github.com/rahul-kumar-java/urlshortener.git
 cd urlshortener
 ```
 
