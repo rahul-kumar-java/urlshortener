@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+  mysql-docker:
+    image: mysql:8
+    container_name: mysql-docker
+    environment:
+      MYSQL_ROOT_PASSWORD: radius
+      MYSQL_DATABASE: sd
+    ports:
+      - "3307:3306"  # host:container
+    networks:
+      - app-network
+
+  url-shortener:
+    build: .
+    container_name: url-shortener
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mysql-docker
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+
