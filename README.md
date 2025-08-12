@@ -4,7 +4,6 @@ Short Description: A lightweight URL Shortener application built using Spring Bo
 
 
 ##  Features
-
 - Create short URLs from long ones
 - Redirect short URLs to the original
 - Redis caching for fast retrieval
@@ -17,7 +16,6 @@ Short Description: A lightweight URL Shortener application built using Spring Bo
 
 
 ## Tech Stack
-
 - Java 17
 - Spring Boot 3.x
 - Spring Web, Spring Data JPA, Spring Validation
@@ -55,7 +53,6 @@ http://localhost:8082/api/shorten
 http://localhost:8082/api/r/a
 
 ## Usage
-
 Redirects to the original long URL based on `shortCode`.
 
 
@@ -63,17 +60,24 @@ Redirects to the original long URL based on `shortCode`.
  Unit tested with JUnit 5 & Mockito
 
 ### Test Coverage:
-
 - POST and GET controller endpoints
-
 - Service layer logic (with Redis and DB interaction)
-
 - Validated with Postman and Swagger UI
 
+## Docker Setup and Usage
+This project supports running with Docker for easy environment setup and deployment.
 
+Steps to run with Docker:
+1. Build the Spring Boot Docker image
+
+    sudo docker-compose build
+2. Start MySQL and Spring Boot Containers
+
+    sudo docker-compose up
+This will start MySQL and the Spring Boot app containers and connect them via Docker networking.
+3. Wait for MySQL to initialize before the spring boot app starts.
 
 ## Run Locally:
-
 1. Clone the repo
 
 git clone https://github.com/rahul-kumar-java/urlshortener.git
@@ -95,11 +99,9 @@ http://localhost:8082/swagger-ui.html
 
 
 ## Testing
-
 - Tested using Postman
 - Validated with Swagger UI
 
 ## Author
-
   Rahul Kumar
 
