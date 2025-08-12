@@ -74,6 +74,7 @@ Steps to run with Docker:
 2. Start MySQL and Spring Boot Containers
 
     sudo docker-compose up
+    
 This will start MySQL and the Spring Boot app containers and connect them via Docker networking.
 3. Wait for MySQL to initialize before the spring boot app starts.
 
