@@ -1,6 +1,6 @@
 Title:  URL Shortener Project
 
-Short Description: A lightweight URL Shortener application built using Spring Boot. It is designed to convert long URLs into short, manageable codes. Supports redirection, caching with Redis, validation, and full unit testing coverage.
+A lightweight URL Shortener application built with Spring Boot, designed to convert long URLs into short, easy-to-share links. Features include URL redirection, caching with Redis, Input Validation, Centralized exception handling and Docker support for containerized deployment.
 
 
 ##  Features
@@ -76,6 +76,7 @@ Steps to run with Docker:
     sudo docker-compose up
     
 This will start MySQL and the Spring Boot app containers and connect them via Docker networking.
+
 3. Wait for MySQL to initialize before the spring boot app starts.
 
 ## Run Locally:
