@@ -5,25 +5,41 @@ services:
     image: mysql:8
     container_name: mysql-docker
     environment:
-      MYSQL_ROOT_PASSWORD: radius
-      MYSQL_DATABASE: sd
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
-      - "3307:3306"  # host:container
+      - "${MYSQL_HOST_PORT}:3306"  # host:container
+    volumes:
+      - mysql_data:/var/lib/mysql   # Persist MySQL data  
     networks:
       - app-network
+
+
+  redis:
+    image: redis:7
+    container_name: redis-docker
+    ports:
+     - "${REDIS_HOST_PORT}:6379"
+    networks:
+      - app-network
+      
+      
+      
 
   url-shortener:
     build: .
     container_name: url-shortener
     ports:
-      - "8082:8082"
+      - "${BACKEND_PORT}:8082"
     depends_on:
       - mysql-docker
+      - redis
     networks:
       - app-network
+
+volumes:
+  mysql_data:      # Named volume for Persistence
 
 networks:
   app-network:
     driver: bridge
-
-
