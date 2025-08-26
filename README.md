@@ -1,6 +1,6 @@
-Title:  URL Shortener Project
+#  URL Shortener Project
 
-A lightweight URL Shortener application built with Spring Boot, designed to convert long URLs into short, easy-to-share links. Features include URL redirection, caching with Redis, Input Validation, Centralized exception handling and Docker support for containerized deployment.
+A lightweight URL Shortener application built with Spring Boot, designed to convert long URLs into short, easy-to-share links. Features include URL redirection, Redis caching, Input Validation, Centralized exception handling and Docker support for containerized deployment.
 
 
 ##  Features
@@ -11,16 +11,15 @@ A lightweight URL Shortener application built with Spring Boot, designed to conv
 - API Documentation via Swagger UI
 - Basic logging using SLF4J
 - Unit Tests for Controller and Service Layers
-- Deployed on local server
-- Project pushed to GitHub
+- Dockerized setup for Spring Boot, MySQL and Redis
 
 
 ## Tech Stack
-- Java 17
+- Java 21
 - Spring Boot 3.x
 - Spring Web, Spring Data JPA, Spring Validation
-- MySQL
-- Redis
+- MySQL 8
+- Redis 7
 - Swagger UI (springdoc-openapi)
 - SLF4J Logging
 - Maven
@@ -65,33 +64,38 @@ Redirects to the original long URL based on `shortCode`.
 - Validated with Postman and Swagger UI
 
 ## Docker Setup and Usage
-This project supports running with Docker for easy environment setup and deployment.
+This project supports Docker Compose for setup of MySQL, Redis and Spring Boot.
 
-Steps to run with Docker:
-1. Build the Spring Boot Docker image
+Steps to run with Docker:-
+
+1: Clone the repository-
+
+  ```
+git clone https://github.com/rahul-kumar-java/urlshortener.git
+cd urlshortener
+```
+   
+
+2: Build the Spring Boot Docker image-
 
     sudo docker-compose build
-2. Start MySQL and Spring Boot Containers
+    
+    
+3: Start the containers
 
     sudo docker-compose up
     
-This will start MySQL and the Spring Boot app containers and connect them via Docker networking.
+4: Services:
 
-3. Wait for MySQL to initialize before the spring boot app starts.
+ Spring Boot app -> http://localhost:8082
+ 
+ MySQL -> port 3307 (from .env)
+ 
+ Redis -> port 6380 (from .env)
 
-## Run Locally:
-1. Clone the repo
+✅ MySQL data is persisted using a Docker volume (mysql_data).
 
-git clone https://github.com/rahul-kumar-java/urlshortener.git
-cd urlshortener
-
-
-2. Configure MySQL and Redis
-Update your `application.properties` with the correct credentials.
-
-3. Run the application
-./mvnw spring-boot:run
-
+✅ Sensitive environment variables (passwords, ports) are managed via .env file.
 
 ## Swagger UI
 
@@ -101,8 +105,16 @@ http://localhost:8082/swagger-ui.html
 
 
 ## Testing
-- Tested using Postman
-- Validated with Swagger UI
+- Verified with Postman and Swagger UI
+
+## What I Learned
+ - Best practices in Docker Compose (using .env and volumes)
+ - Handling service dependencies in Docker Compose using `healthchecks` and `depends_on`
+ - Securing sensitive info via environment variables
+ - Clean API desing using Spring Boot + Swagger
+ - Using Redis caching for performance optimization
+
+
 
 ## Author
   Rahul Kumar
