@@ -59,6 +59,6 @@ public class UrlShortenerController {
 	
 	 @GetMapping("/hello")
 	    public String hello() {
-	        return "Hello, Swagger!";
+	        return "Hello from Spring Boot behind NGINX!";
 	    }
 }

@@ -48,6 +48,21 @@ services:
         condition: service_healthy  
     networks:
       - app-network
+      
+      
+  
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"   # expose NGINX on localhost(laptop):80 (Docker container in docker network)
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d  # mount your custom conf
+    depends_on:
+      - url-shortener
+    networks:
+      - app-network
+      
 
 volumes:
   mysql_data:      # Named volume for Persistence
