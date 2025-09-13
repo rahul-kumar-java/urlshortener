@@ -38,9 +38,9 @@ services:
 
   url-shortener:
     build: .
-    container_name: url-shortener
-    ports:
-      - "${BACKEND_PORT}:8082"
+    #container_name: url-shortener
+  #  ports:
+  #    - "${BACKEND_PORT}:8082"
     depends_on:
       mysql-docker:
         condition: service_healthy
