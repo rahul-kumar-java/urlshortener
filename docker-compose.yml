@@ -38,9 +38,9 @@ services:
 
   url-shortener:
     build: .
-    #container_name: url-shortener
+    #container_name: url-shortener    // commented 'container_name' because of running multiple instances.
   #  ports:
-  #    - "${BACKEND_PORT}:8082"
+  #    - "${BACKEND_PORT}:8082"      // commented 'ports' because of running multiple instances.
     depends_on:
       mysql-docker:
         condition: service_healthy
@@ -62,6 +62,20 @@ services:
       - url-shortener
     networks:
       - app-network
+  
+  
+  
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9091:9090"
+    volumes: 
+      - ./prometheus/prometheus-docker.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - app-network    
+  
+  
       
 
 volumes:
