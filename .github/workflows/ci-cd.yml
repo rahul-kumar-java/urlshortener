@@ -24,4 +24,4 @@ jobs:
         run: mvn clean package -Dspring.profiles.active=ci  -DskipTests=false
 
       - name: Build Docker image
-         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/urlshortener:latest .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/urlshortener:latest .
