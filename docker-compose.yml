@@ -37,7 +37,8 @@ services:
       
 
   url-shortener:
-    build: .
+  #  build: .      // commented 'build' because we would use(test) Docker Hub image
+    image: rahuljavadev/urlshortener:latest
     #container_name: url-shortener    // commented 'container_name' because of running multiple instances.
   #  ports:
   #    - "${BACKEND_PORT}:8082"      // commented 'ports' because of running multiple instances.
@@ -51,29 +52,29 @@ services:
       
       
   
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    ports:
-      - "80:80"   # expose NGINX on localhost(laptop):80 (Docker container in docker network)
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d  # mount your custom conf
-    depends_on:
-      - url-shortener
-    networks:
-      - app-network
+#  nginx:
+#    image: nginx:latest
+#    container_name: nginx
+#    ports:
+#      - "80:80"   # expose NGINX on localhost(laptop):80 (Docker container in docker network)
+#    volumes:
+#      - ./nginx/conf.d:/etc/nginx/conf.d  # mount your custom conf
+#    depends_on:
+#      - url-shortener
+#    networks:
+#      - app-network
   
   
-  
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheus
-    ports:
-      - "9091:9090"
-    volumes: 
-      - ./prometheus/prometheus-docker.yml:/etc/prometheus/prometheus.yml
-    networks:
-      - app-network    
+#  
+#  prometheus:
+#    image: prom/prometheus:latest
+#    container_name: prometheus
+#    ports:
+#      - "9091:9090"
+#    volumes: 
+#      - ./prometheus/prometheus-docker.yml:/etc/prometheus/prometheus.yml
+#    networks:
+#      - app-network    
   
   
       
