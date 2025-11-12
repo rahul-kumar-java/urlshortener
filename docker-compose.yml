@@ -37,11 +37,11 @@ services:
       
 
   url-shortener:
-    build: .      // commented 'build' because we would use(test) Docker Hub image
-  #  image: rahuljavadev/urlshortener:latest
-    #container_name: url-shortener    // commented 'container_name' because of running multiple instances.
-  #  ports:
-  #    - "${BACKEND_PORT}:8082"      // commented 'ports' because of running multiple instances.
+  #  build: .    // commented 'build' because we would use(test) Docker Hub image
+    image: rahuljavadev/urlshortener:latest
+    container_name: url-shortener
+    ports:
+      - "${BACKEND_PORT}:8082"      
     depends_on:
       mysql-docker:
         condition: service_healthy
