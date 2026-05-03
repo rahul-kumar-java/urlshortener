@@ -1,87 +1,27 @@
-version: '3.9'
+version: "3.9"
 
 services:
-  mysql-docker:
+
+  mysql:
     image: mysql:8
-    container_name: mysql-docker
+    container_name: mysql-container
+    restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: urlshortener
     ports:
-      - "${MYSQL_HOST_PORT}:3306"  # host:container
+      - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql   # Persist MySQL data  
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5  
-    networks:
-      - app-network
+      - mysql_data:/var/lib/mysql
 
-
-  redis:
-    image: redis:7
-    container_name: redis-docker
+  urlshortener-app:
+    build: .
+    container_name: urlshortener-container
+    restart: unless-stopped
     ports:
-     - "${REDIS_HOST_PORT}:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5 
-    networks:
-      - app-network
-      
-      
-      
-
-  url-shortener:
-  #  build: .    // commented 'build' because we would use(test) Docker Hub image
-    image: rahuljavadev/urlshortener:latest
-    container_name: url-shortener
-    ports:
-      - "${BACKEND_PORT}:8082"      
+      - "8082:8082"
     depends_on:
-      mysql-docker:
-        condition: service_healthy
-      redis:
-        condition: service_healthy  
-    networks:
-      - app-network
-      
-      
-  
-#  nginx:
-#    image: nginx:latest
-#    container_name: nginx
-#    ports:
-#      - "80:80"   # expose NGINX on localhost(laptop):80 (Docker container in docker network)
-#    volumes:
-#      - ./nginx/conf.d:/etc/nginx/conf.d  # mount your custom conf
-#    depends_on:
-#      - url-shortener
-#    networks:
-#      - app-network
-  
-  
-#  
-#  prometheus:
-#    image: prom/prometheus:latest
-#    container_name: prometheus
-#    ports:
-#      - "9091:9090"
-#    volumes: 
-#      - ./prometheus/prometheus-docker.yml:/etc/prometheus/prometheus.yml
-#    networks:
-#      - app-network    
-  
-  
-      
+      - mysql
 
 volumes:
-  mysql_data:      # Named volume for Persistence
-
-networks:
-  app-network:
-    driver: bridge
+  mysql_data:
